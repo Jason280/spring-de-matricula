@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Categorias</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/imagenes/favicon-32x32.png"/>
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body style="background-color:#EAF2E3;">
+	
+	
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container">
+		<div id="myform">
+			<div class="row clearfix">
+				<div class="col-md-12 column" align ="center">
+				
+				<p></p>
+					
+						<br />
+					<form th:action="@{/categoria/buscar}" method="post">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-md-8">
+									<input type="text" class="form-control" th:name="txtnamesearch"
+										placeholder="Ingresa el nombre del alumno"></input>
+								</div>
+								<div class="col-md-4" style="left: -174px;">
+									<button type="submit" class="btn btn-primary btn-md">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				<br /><a 
+						th:href="@{/categoria/irRegistrar}" id="add-row" type="button"
+						class="btn btn-primary btn-md left-block"> <span
+						class="glyphicon glyphicon-plus"></span> Categoria
+					</a> <br /> <br />
+
+					<div class="container" th:if="${mensaje != null}">
+						<div class="row">
+							<div class="col-md-12 col-md-12 alert alert-warning">
+								<span th:text="${mensaje}"></span>
+							</div>
+						</div>
+					</div>
+				
+					<table class="table table-hover" id="tab_logic">
+							<thead class="thead-dark">
+							<tr>
+							<th class="text-center"> CODIGO</th>
+								<th class="text-center"> NOMBRE</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="rac: ${listaCategorias}">
+							<td th:text="${rac.id_categoria}"></td>
+								<td th:text="${rac.nombreCategoria}"></td>
+								
+									<td>
+								
+												<a th:href="@{'/categoria/modificar/' + ${rac.id_categoria}}" id="add-row" 
+							type="button"
+							class="btn btn-primary btn-md left-block"> MODIFICAR
+							<span
+							class="glyphicon glyphicon-pencil" ></span>
+						</a>
+						
+						
+						
+						 
+						<a  
+						 style="background:red" th:href="@{/categoria/eliminar?id=}+${rac.id_categoria}" id="add-row" 
+							 type="button"
+							class="btn btn-primary btn-md left-block"> ELIMINAR
+							<span
+							class="glyphicon glyphicon-trash" ></span>
+						</a>
+								
+								
+								
+								
+								</td>
+								
+							</tr>
+						</tbody>
+
+					</table>
+					
+				</div>
+			</div>
+			</div>
+
+</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

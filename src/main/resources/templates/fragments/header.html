@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8"></meta>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+</link>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js">
+	
+</script>
+
+<link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
+
+
+
+</head>
+
+
+
+
+
+<body style="background-color:grey;">
+	<!-- th:fragment define un fragment los cuales sirven para evitar la redundancia de codigo -->
+	<!-- Sintaxis th:fragment="Nombre del fragment" -->
+	<div th:fragment="header">
+		<!-- this is header -->		
+		<nav class="navbar navbar-inverse">
+			<div class="container">
+<img th:src="@{/img/categoriacurso.png}" width="150" height="100" alt="logo1" align=right></img>
+				<div class="navbar-header">
+					<a class="navbar-brand" th:href="@{/curso/bienvenido}">SISTEMA DE CURSOS</a>
+				</div>
+
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav ml-auto">
+                     
+						<li class="active" style="color:#B6DCB6";><a th:href="@{/curso/listar}" style="color:#B6DCB6";> GESTIONAR CURSO</a>
+						
+						<ul>
+						
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/curso/irRegistrar}" style="color:#FFFFFF";>AGREGAR CURSOS</a>
+							
+							 <span
+							class="glyphicon glyphicon-plus" ></span>
+							</li>
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/curso/listar}"style="color:#FFFFFF";>MOSTRAR CURSOS</a>
+							<span
+							class="glyphicon glyphicon-eye-open" style="color:#B6DCB6"; ></span>
+							</li>
+							</ul>
+						
+						</li>
+						<li class="active" style="color:#B6DCB6";><a th:href="@{/categoria/listar}"style="color:#B6DCB6";>GESTIONAR CATEGORIA</a>
+						<ul>
+							<li class="active"  style="color:#B6DCB6";><a th:href="@{/categoria/irRegistrar}"style="color:#FFFFFF";>AGREGAR CATEGORIAS</a>
+							 <span
+							class="glyphicon glyphicon-plus" style="color:#B6DCB6";></span>
+							</li>
+							<li class="active"  style="color:#B6DCB6";><a th:href="@{/categoria/listar}"style="color:#FFFFFF";>MOSTRAR CATEGORIAS</a>
+							 <span
+							class="glyphicon glyphicon-eye-open" style="color:#B6DCB6"; ></span>
+							</li>
+							</ul>
+						
+						</li>
+						
+							<li class="active"  style="color:#B6DCB6";><a th:href="@{/alumno/listar}"style="color:#B6DCB6";>GESTIONAR ALUMNO</a>
+							<ul>
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/alumno/irRegistrar}"style="color:#FFFFFF";>AGREGAR ALUMNOS</a>
+							 <span
+							class="glyphicon glyphicon-plus" style="color:#B6DCB6"; ></span>
+							</li>
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/alumno/listar}"style="color:#FFFFFF";>MOSTRAR ALUMNOS</a>
+							 <span
+							class="glyphicon glyphicon-eye-open" style="color:#B6DCB6"; ></span>
+							</li>
+							</ul>
+							
+							</li>
+							
+							
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/docente/listar}"style="color:#B6DCB6";>GESTIONAR DOCENTE</a>
+							
+							<ul>
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/docente/irRegistrar}"style="color:#FFFFFF";>AGREGAR DOCENTES</a>
+							 <span
+							class="glyphicon glyphicon-plus" style="color:#B6DCB6"; ></span>
+							</li>
+							<li class="active" style="color:#B6DCB6";><a th:href="@{/docente/listar}"style="color:#FFFFFF";>MOSTRAR DOCENTES</a>
+							 <span
+							class="glyphicon glyphicon-eye-open" style="color:#B6DCB6"; ></span>
+							</li>
+							</ul>
+							</li>
+							
+							
+						
+			
+						
+						<li class="active">
+						<li>
+						<form id="logoutForm"
+								th:action="@{/logout}" method="post">
+								<button class="btn btn-dark" 
+									onclick="document.getElementById('logoutForm').submit();"
+									type="submit">Cerrar Sesion
+									 <span
+							class="glyphicon glyphicon-off" style="color:red"; ></span>
+									</button>
+							</form></li>
+					</ul>
+
+	<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+
+
+				</div>
+								
+
+			</div>
+		</nav>
+			
+		
+	</div>
+
+</body>
+
+</html>
+

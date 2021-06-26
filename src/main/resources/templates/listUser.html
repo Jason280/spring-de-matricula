@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		
+		<meta charset="UTF-8"></meta>
+		
+		<title>Cliente</title>
+		
+		<script type="text/javascript"
+			src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js">
+		</script>
+		
+		<link
+			href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+			rel="stylesheet" id="bootstrap-css">
+		</link>
+		
+		<script
+			src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js">
+		</script>
+		
+		<script src="//code.jquery.com/jquery-1.11.1.min.js">
+		</script>
+
+	</head>
+
+	<body>
+	
+		<div th:replace="fragments/header :: header"></div>
+
+		<div class="container">
+			<div id="myform">
+				<div class="row clearfix">
+					<div class="col-md-12 column" align="center">
+				<img th:src="@{/imagenes/8.png}" width="600" height="400" alt="logo1" align="middle"></img>
+				<p></p>
+						
+						<br />
+					<form th:action="@{/user/buscar}" method="post">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-md-8">
+									<input type="text" class="form-control" th:name="txtnamesearch"
+										placeholder="Ingresa el nombre del usuario"></input>
+								</div>
+								<div class="col-md-4" style="left: -174px;">
+									<button type="submit" class="btn btn-primary btn-md">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</form>
+					
+						
+						<br /><a  style="border-bottom-color: green" th:href="@{/user/irRegistrar}" id="add-row" 
+							type="button"
+							class="btn btn-primary btn-md left-block"> <span
+							class="glyphicon glyphicon-plus" ></span> Usuario
+						</a><br /> <br />
+						<div class="container" th:if="${mensaje != null}">
+						<div class="row">
+							<div class="col-md-12 col-md-12 alert alert-warning">
+								<span th:text="${mensaje}"></span>
+							</div>
+						</div>
+					</div>
+						
+						<table class="table table-bordered table-hover table-striped" id="tab_logic">
+							<thead>
+								<tr>
+									<th class="text-center"style="color:#00578E";>CODIGO</th>
+									<th class="text-center"style="color:#00578E";>NOMBRE</th>
+									<th class="text-center"style="color:#00578E";>CONTRASEÑA</th>
+									<th class="text-center"style="color:#00578E";>CORREO</th>
+									<th class="text-center"style="color:#00578E";>ROL</th>
+									<th class="text-center"style="color:#00578E";>OPERACIÓN1</th>
+									<th class="text-center"style="color:#00578E";>OPERACIÓN2</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="u: ${listaUser}">
+									<td th:text="${u.id}"></td>
+									<td th:text="${u.username}"></td>
+									<td th:text="${u.password}"></td>
+									<td th:text="${u.correo}"></td>
+									<td th:text="${u.roles[0].getAuthority()}"></td>
+									<td>
+									
+													<a  th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" style="background:#FFC300" th:href="@{'/user/modificar/' + ${u.id}}" id="add-row" 
+							type="button"
+							class="btn btn-primary btn-md left-block"> MODIFICAR
+							<span
+							class="glyphicon glyphicon-pencil" ></span>
+						</a>
+						
+						
+						
+						 
+						<a  th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+						 style="background:red" th:href="@{/user/eliminar?id=}+${u.id}" id="add-row" 
+							 type="button"
+							class="btn btn-primary btn-md left-block"> ELIMINAR
+							<span
+							class="glyphicon glyphicon-trash" ></span>
+						</a>
+									
+									</td>
+								</tr>
+							</tbody>
+						</table>
+											
+					</div>
+				</div>
+			<div th:if="${mensaje}" class="alert alert-danger">
+				<p th:text="${mensaje}"></p>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="fragments/footer :: footer"></div>
+
+	</body>
+</html>
+
