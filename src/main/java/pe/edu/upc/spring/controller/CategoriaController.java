@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.spring.model.Categoria;
+import pe.edu.upc.spring.entity.Categoria;
 import pe.edu.upc.spring.service.ICategoriaService;
 
 @Controller
@@ -42,7 +42,7 @@ public class CategoriaController {
 		return "categoria";
 	}
 	@RequestMapping("/registrar")
-	public String registrar(@ModelAttribute @Valid Categoria objCat, BindingResult binRes, Model model) 
+	public String registrar(@ModelAttribute @Valid Categoria objCat, BindingResult binRes, Model model,RedirectAttributes attribute) 
 	throws ParseException
 	{
 		if (binRes.hasErrors()) {
@@ -51,6 +51,7 @@ public class CategoriaController {
 		else {
 			boolean flag = mService.insertar(objCat);
 			if (flag) {
+				attribute.addFlashAttribute("success","OPERACION CORRECTA");
 				return "redirect:/categoria/listar";
 			}
 			else {
@@ -64,7 +65,7 @@ public class CategoriaController {
 	public String modificar(@PathVariable int id, Model model, RedirectAttributes objRedir) 
 	throws ParseException
 	{
-		Optional<Categoria> objCat = mService.listarId(id);
+		Categoria objCat = mService.listarId(id);
 		
 		if (objCat == null) {
 			objRedir.addFlashAttribute("mensaje", "Ocurrio un error");
@@ -124,13 +125,14 @@ public class CategoriaController {
 			Model model) {
 		List<Categoria> listaCategorias;
 		if (StringUtils.isEmpty(txtnamesearch)) {
+			model.addAttribute("mensaje", "No existen resultados");
 			listaCategorias = mService.listar();
 		} else {
 			listaCategorias = mService.buscarNombreCategoria(txtnamesearch);
 		}
 		
 		if (listaCategorias.isEmpty()) {
-			model.addAttribute("mensaje", "No se encontraron resultados");
+			model.addAttribute("mensaje", "No existen resultados");
 		}
 		model.addAttribute("listaCategorias", listaCategorias);				
 		return "listCategoria";

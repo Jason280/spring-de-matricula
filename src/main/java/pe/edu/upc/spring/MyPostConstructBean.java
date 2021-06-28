@@ -9,36 +9,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import pe.edu.upc.spring.model.Role;
-import pe.edu.upc.spring.model.User;
-import pe.edu.upc.spring.service.IUserService;
+import pe.edu.upc.spring.entity.C_Usuario;
+
+import pe.edu.upc.spring.service.IUsuarioService;
+
 
 @Component
 public class MyPostConstructBean {
 
 	@Autowired
-	private IUserService uService;
+	private IUsuarioService uService;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	void postConstruct() {
-
+		
 		try {
-			List<Role> roles = new ArrayList<Role>();
-			roles.add(new Role("ROLE_ADMIN"));
-			roles.add(new Role("ROLE_USER"));
-
-			User user = new User();
+			List<pe.edu.upc.spring.entity.Role> roles = new ArrayList<pe.edu.upc.spring.entity.Role>();
+			
+			C_Usuario user = new C_Usuario();
+			
 			user.setId(1);
-			user.setCorreo("alejo_gm@gmail.com");
 			user.setEnabled(true);
-			user.setUsername("alejoGM");
-			user.setPassword(passwordEncoder.encode("123456"));
-			user.setRoles(roles);
-
-			uService.insert(user);
+			user.setUsername("admin01");
+			user.setPassword(passwordEncoder.encode("admin01"));
+            user.setRoles(roles);
+			uService.insertar(user);
 		} catch (Exception ex) {
 
 		}

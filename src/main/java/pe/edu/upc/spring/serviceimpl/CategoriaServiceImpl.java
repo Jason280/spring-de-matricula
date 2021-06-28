@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import pe.edu.upc.spring.model.Categoria;
-import pe.edu.upc.spring.repository.ICategoriaRepository;
+import pe.edu.upc.spring.entity.Categoria;
+import pe.edu.upc.spring.dao.ICategoriaDAO;
 import pe.edu.upc.spring.service.ICategoriaService;
 
 
@@ -18,7 +18,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
 
 	
 	@Autowired
-	private ICategoriaRepository mD;
+	private ICategoriaDAO mD;
 
 	@Override
 	@Transactional
@@ -36,8 +36,9 @@ public class CategoriaServiceImpl implements ICategoriaService {
 	}
 
 	@Override
+	@Transactional
 	public void eliminar(int idcategoria) {
-		mD.deleteById(idcategoria);		
+			mD.delete(idcategoria);
 	}
 	
 	@Override
@@ -60,8 +61,8 @@ public class CategoriaServiceImpl implements ICategoriaService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<Categoria> listarId(int idcategoria) {
-		return  mD.findById(idcategoria);
+	public Categoria listarId(int idcategoria) {
+		return  mD.findOne(idcategoria);
 	}
 
 

@@ -1,58 +1,115 @@
 package pe.edu.upc.spring.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import pe.edu.upc.spring.model.Alumno;
-import pe.edu.upc.spring.repository.IAlumnoRepository;
+import pe.edu.upc.spring.dao.IAlumnoDAO;
+import pe.edu.upc.spring.dao.IUsuarioDAO;
+import pe.edu.upc.spring.entity.C_Alumno;
+import pe.edu.upc.spring.entity.C_Usuario;
 import pe.edu.upc.spring.service.IAlumnoService;
-
 
 @Service
 public class AlumnoServiceImpl implements IAlumnoService {
 
+	@Autowired
+	private IAlumnoDAO dAlumno;
 	
 	@Autowired
-	private IAlumnoRepository mD;
+	private IUsuarioDAO dUser;
 
 	@Override
 	@Transactional
-	public boolean insertar(Alumno alumno) {
-		Alumno objAlum = mD.save(alumno);
-		if (objAlum == null)
+	public boolean insertar(C_Alumno alumno) {
+		C_Alumno objAlumno = dAlumno.save(alumno);
+		if (objAlumno == null) {
 			return false;
-		else
-			return true;	
+		} else {
+			return true;
+		}
 	}
 
 	@Override
-	@Transactional(readOnly=true)
-	public List<Alumno> listar() {
-		return mD.findAll();
+	@Transactional
+	public boolean modificar(C_Alumno alumno) {
+		boolean flag = false;
+		try {
+			
+			C_Alumno a = dAlumno.findOne(alumno.getIdAlumno());
+			C_Usuario aux = a.getUsuario();
+			dUser.delRol(aux.getId());
+			dAlumno.delete(alumno.getIdAlumno());
+			dUser.delete(aux.getId());
+			dAlumno.save(alumno);
+			flag = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return flag;
 	}
 
 	@Override
 	@Transactional
 	public void eliminar(int idAlumno) {
-		mD.deleteById(idAlumno);		
+
+		C_Alumno a = dAlumno.findOne(idAlumno);
+		C_Usuario aux = a.getUsuario();
+		dUser.delRol(aux.getId());
+		dAlumno.delete(idAlumno);
+		dUser.delete(aux.getId());
 	}
+
 	
 	@Override
-	public List<Alumno> buscarNombreAlumno(String nameAlumno) {
-		return mD.buscarNombreAlumno(nameAlumno);
+	@Transactional(readOnly=true)
+	public C_Alumno listar_Id(int idAlumno) {
+		return dAlumno.findOne(idAlumno);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<C_Alumno> buscar_Nombre(String Razon_social) {
+
+		return dAlumno.buscar_Nombre(Razon_social);
+
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<C_Alumno> listar() {
+		return dAlumno.findAll();
+	}
+
+	public C_Alumno buscar_Alumno_por_Usuario(C_Usuario user)
+	{
+		return dAlumno.findByUsuario(user);
 	}
 	
-	@Override
-	
-	public boolean modificar(Alumno alumno) {
+	@Override //@Transactional
+	public boolean modAl(String nombre, int id)
+	{
 		boolean flag = false;
 		try {
-			mD.save(alumno);
+			dAlumno.modAl(nombre, id);
+			flag = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return flag;
+		
+	}
+
+	@Override
+	public boolean eliminarNombre(C_Alumno alumno) {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		try {
+			dAlumno.save(alumno);
 			flag = true;
 		}
 		catch(Exception ex) {
@@ -62,10 +119,8 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Alumno listarId(int idAlumno) {
-		return  mD.findById(idAlumno).get();
+	public List<C_Alumno> buscar_Username(String username) {
+		return dAlumno.buscar_Username(username);
 	}
-
 
 }

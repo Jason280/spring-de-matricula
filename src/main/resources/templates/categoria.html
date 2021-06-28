@@ -22,15 +22,17 @@
 	</head>
 	
 	<body>
-	
-		<div th:replace="fragments/header :: header"></div>
+	 <div th:replace="fragments/headeradmin :: header"></div>
+	<div th:replace="fragments/headeradmin :: menu"></div>
 		
 		<div class="container">
 			<form th:action="@{/categoria/registrar}" method="post" th:object="${categoria}">
-				<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="form-group">
+				<div class="form-group">
 					
 					<label for="id_Categoria">ID:</label> 
-					<input type="text" class="form-control" th:field="*{id_categoria}"></input>
+					<input type="text" class="form-control" th:field="*{id_categoria}" readonly="readonly"></input>
+					
+					
 					
 					<div class="form-group">
 					
@@ -46,7 +48,7 @@
 					
 				</div>
 				
-				<button th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" type="submit" class="btn btn-primary">Aceptar</button>
+				<button  type="submit" class="btn btn-primary">Aceptar</button>
 				<a href="/categoria/listar" class="btn btn-danger">Cancelar</a>
 			</form>
 		</div>

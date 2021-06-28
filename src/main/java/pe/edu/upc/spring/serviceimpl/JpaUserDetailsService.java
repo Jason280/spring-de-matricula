@@ -13,30 +13,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pe.edu.upc.spring.repository.IUsuarioRolRepository;
-import pe.edu.upc.spring.model.Role;
-import pe.edu.upc.spring.model.UsuarioRol;
-
+import pe.edu.upc.spring.dao.IUsuarioDAO;
+import pe.edu.upc.spring.entity.Role;
+import pe.edu.upc.spring.entity.C_Usuario;
 
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUsuarioRolRepository usuarioRolDao;
+	private IUsuarioDAO usuarioDao;
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String nombre) throws UsernameNotFoundException {
 
-		UsuarioRol usuarioRol = usuarioRolDao.findByUsername(username);
+		C_Usuario usuario = usuarioDao.buscar_Nombre(nombre);
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-		for (Role role : usuarioRol.getRoles()) {
+		for (Role role : usuario.getRoles()) {
 			authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
 		}
 
-		return new User(usuarioRol.getUsername(), usuarioRol.getPassword(), usuarioRol.isEnabled(), true, true, true,
+		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true,
 				authorities);
 	}
 

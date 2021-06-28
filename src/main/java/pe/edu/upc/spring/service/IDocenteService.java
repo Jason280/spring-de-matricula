@@ -1,16 +1,27 @@
 package pe.edu.upc.spring.service;
 
 import java.util.List;
-import java.util.Optional;
 
 
-import pe.edu.upc.spring.model.Docente;
+import pe.edu.upc.spring.entity.C_Docente;
+import pe.edu.upc.spring.entity.C_Usuario;
 
 public interface IDocenteService {
-	public boolean insertar(Docente docente);
-	public List<Docente> listar();
+
+	public boolean insertar(C_Docente docente);
+
+	public boolean modificar(C_Docente docente);
+
 	public void eliminar(int idDocente);
-	public boolean modificar (Docente docente);
-	List<Docente> buscarNombreDocente(String nameDocente);
-	public Optional<Docente> listarId(int idDocente);
+
+	public C_Docente listar_Id(int idDocente);
+
+	List<C_Docente> listar();
+	List<C_Docente> buscar_Nombre(String Nombre);
+	
+	//public C_Docente buscar_Docente_por_Usuario(C_Usuario user); 
+
+	public boolean modDo(String Nombre, int id);
+	
+
 }

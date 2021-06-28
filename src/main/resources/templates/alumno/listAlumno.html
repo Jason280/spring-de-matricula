@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+<meta charset="UTF-8"></meta>
+<title>Alumnos</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/imagenes/favicon-32x32.png"/>
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js"></script>
+
+</head>
+<body>
+	<div th:replace="fragments/headeradmin :: header"></div>
+	<div th:replace="fragments/headeradmin :: menu"></div>
+	<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column" align="center">
+				<img th:src="@{/img/alumno.png}" width="400" height="200" alt="logo1" align="middle"></img>
+				<p></p>
+				<br />
+				<form th:action="@{/alumno/buscar}" method="post">
+				<div class="container">
+							<div class="row">
+
+								<div class="col-md-8">
+									<input type="text" class="form-control" th:name="txtnamesearch"
+										placeholder="Digite el nombre del alumno"></input>
+								</div>
+								<div class="col-md-4" style="left: -174px;">
+									<button type="submit" class="btn btn-primary btn-md">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+
+							</div>
+						</div>
+						</form>
+						<br />
+					<table class="table table-hover"
+						id="tab_logic">
+						<thead class="thead-dark">
+							<tr>
+							    <th class="text-center">CODIGO</th>
+								<th class="text-center">NOMBRE</th>
+								<th class="text-center">APELLIDO</th>
+								<th class="text-center">USUARIO</th>
+								<th class="text-center">CARRERA UNIVERSITARIA</th>
+								<th class="text-center">LISTAR CURSOS MATRICULADOS</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="rac: ${listaAlumnos}">
+							<th scope="row">
+							<a class="btn btn-info btn-xs"
+							th:href="@{/alumno/detalle/}+${rac.idAlumno}"
+							th:text="${rac.idAlumno}">
+							<span
+							class="glyphicon glyphicon-user" ></span></a>
+							</th>
+								<td th:text="${rac.nombre}"></td>
+								<td th:text="${rac.Apellido}"></td>
+								
+								<td th:text="${rac.usuario.username}"></td>
+								
+								<td th:text="${rac.carrera.nombreCarrera}"></td>
+								<td><a style="font-size: 24px"
+								 th:href="@{'/alumno_curso/cxa/' +  ${rac.idAlumno}}">
+								<span
+							class="glyphicon glyphicon-file" ></span></a></td>
+								
+								<td>
+								
+									<a style="background:#FFC300" th:href="@{'/alumno/modificar/' + ${rac.idAlumno}}" id="add-row" 
+							type="button"
+							class="btn btn-primary btn-md left-block"> EDITAR
+							<span
+							class="glyphicon glyphicon-cog" ></span>
+						</a>
+						
+						
+						
+						 
+						<a 
+						 style="background:red" 
+						 th:href="@{/alumno/eliminar?id=}+${rac.idAlumno}" id="add-row" 
+							 type="button"
+							class="btn btn-primary btn-md left-block"
+							onclick="return confirm('Seguro que deseas eliminar alumno ?');"
+							> ELIMINAR
+							<span
+							class="glyphicon glyphicon-trash" ></span>
+						</a>
+						
+								
+								</td>
+								
+								
+							</tr>
+							
+							
+							
+							
+						</tbody>
+						
+						
+						
+
+					</table>
+					
+				</div>
+			</div>
+			<div th:if="${mensaje}" class="alert alert-danger">
+			<p th:text="${mensaje}"></p>
+			</div>
+	</div>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
