@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>PERFIL ALUMNO</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/imagenes/favicon-32x32.png"/>
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js"></script>
+
+</head>
+<body>
+		<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: menu"></div>
+	<div class="container">
+			<div class="card bg-ligth">
+				<div class="card-header bg-dark text-white tex-center" th:text="'DATOS DEL ALUMNO'"></div>
+				<div class="card-body">
+				<img class="img-thumbnail rounded float-left"
+				th:src="@{'/img/'+${alumno.foto}}"
+				th:alt="${alumno.foto}"
+				style="max-width:44%;"></img>
+				 
+				 <ul class="list-group">
+				 
+				 <li class ="list-group-item" th:text="'NOMBRE DEL ALUMNO: '     +        ${alumno.nombre}" ></li>
+				 <li class ="list-group-item" th:text="'EDAD: '     +        ${alumno.edadAlumno}" ></li>
+				 <li class ="list-group-item" th:text="'CORREO: '     +        ${alumno.correoAlumno}" ></li>
+				<li class ="list-group-item" th:text="'NOMBRE DE USUARIO:'     +        ${alumno.usuario.username}" ></li>
+				
+				 </ul>
+				 
+		<a 
+						 style="background:red" 
+						 href="/login/home/"
+							 type="button"
+							class="btn btn-primary btn-md left-block"
+							onclick="return confirm('Estas seguro que deseas salir?');"
+							> SALIR
+							<span
+							class="glyphicon glyphicon-arrow-left" ></span>
+						</a>
+				 
+				 
+				 
+				 	 
+		</div>
+		</div>		
+	</div>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

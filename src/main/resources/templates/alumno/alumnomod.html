@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title>Admin</title>
+<meta charset="utf-8" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/logo1.png" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/alumno.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: headerindex"></div>
+	<div class="py-5 text-center"></div>
+
+	<div class="py-5"
+		style="background-image: url('/img/ricardo2.rgif'); background-size: auto;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 "></div>
+				<div class="col-md-6 ">
+					<div class="card">
+						<div class="card-body p-5">
+							<h3 class="pb-3 text-center">REGISTAR ALUMNO</h3>
+							<form th:action="@{/alumno/registrar}" method="post"
+								th:object="${alumno}" enctype="multipart/form-data">
+
+							<input type="hidden" class="form-control" th:field="*{idAlumno}" readonly="readonly"></input>
+
+								<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="nombre">Nombre</label> <input
+												type="text" required="required" maxlength="10" minlength="3"
+												title="Debe tener como maximo 10 caracteres y minimo 3 caracteres"
+												 th:field="*{nombre}" class="form-control"
+												id="nombre" />
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('nombre')}"
+												th:errors="*{nombre}"></div>
+										</div>
+									</div>
+								</div>
+								
+								
+								
+
+										<div class="form-group">
+											<label for="usuario.username">Usuario</label> <input
+												type="text" maxlength="9" minlength="9"  th:field="*{usuario.username}"
+												class="form-control" id="username"
+												/>
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('usuario.username')}"
+												th:errors="*{usuario.username}"></div>
+										</div>
+
+										<div class="form-group">
+											<label for="usuario.password">Contraseña</label> <input
+												type="password" pattern="(?=.*\d)(?=.*[(a-z)(A-Z]).{1,}" 
+												title="Debe contener una letra y un numero"
+												th:field="*{usuario.password}"
+												class="form-control" id="password"
+												/>
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('usuario.password')}"
+												th:errors="*{usuario.password}"></div>
+										</div>
+										
+										
+										  
+									
+								<button type="submit" class="btn mt-2  btn-block btn-secondary">REGISTRAR</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

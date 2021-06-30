@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		
+		<meta charset="UTF-8"></meta>
+		
+		<title>Categorias</title>
+		
+		<script type="text/javascript"
+			src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js">
+		</script>
+		
+		<link
+			href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+			rel="stylesheet" id="bootstrap-css">
+		</link>
+		
+		<script
+			src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js">
+		</script>
+		
+		<script src="//code.jquery.com/jquery-1.11.1.min.js">
+		</script>
+
+	</head>
+
+	<body >
+	
+	
+	<div th:replace="fragments/headeradmin :: header"></div>
+	<div th:replace="fragments/headeradmin :: menu"></div>
+
+		<div class="container">
+			<div id="myform">
+				<div class="row clearfix">
+					<div class="col-md-12 column" align="center">
+				<img th:src="@{/img/gestionarcategorias.jpg}" width="400" height="200" alt="logo1" align="middle"></img>
+				<p></p>
+					
+						<br />
+					<form th:action="@{/carrera/buscar}" method="post">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-md-8">
+									<input type="text" class="form-control" th:name="txtnamesearch"
+										placeholder="Digita el nombre de la carrera"></input>
+								</div>
+								<div class="col-md-4" style="left: -174px;">
+									<button type="submit" class="btn btn-primary btn-md">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</form>
+					
+						
+						<br />
+						
+							<br /> <a  style="border-bottom-color: green"
+						th:href="@{/carrera/irRegistrar}" id="add-row" type="button"
+						class="btn btn-primary btn-md left-block"> <span
+						class="glyphicon glyphicon-plus"></span> Carreras
+					</a> <br /> <br />
+						
+						
+						
+						
+						
+						
+						<table class="table table-hover" id="tab_logic">
+							<thead class="thead-dark">
+								<tr>
+									<th class="text-center" >CODIGO</th>
+									<th class="text-center" >NOMBRE DE LA CARRERA</th>
+									
+			
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="car: ${listaCarreras}">
+									<td th:text="${car.id_Carrera}"></td>
+									<td th:text="${car.nombreCarrera}"></td>
+									<td>
+									
+						
+						
+					
+						<a  style="background:#FFC300" th:href="@{'/carrera/modificar/' + ${car.id_Carrera}}" id="add-row" 
+							type="button"
+							class="btn btn-primary btn-md left-block"> MODIFICAR
+							<span
+							class="glyphicon glyphicon-cog" ></span>
+						</a>
+						
+						
+						
+						 
+						<a  
+						data-confirm="¿Total y completamente seguro de eliminar?"
+						 style="background:red" th:href="@{/carrera/eliminar?id=}+${car.id_Carrera}" id="add-row" 
+							 type="button"
+							class="btn btn-primary btn-md left-block"
+							onclick="return confirm('Seguro que deseas eliminar esta carrera?');"
+							> ELIMINAR
+							<span
+							class="glyphicon glyphicon-trash" ></span>
+						</a>
+													
+			
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+											
+					</div>
+				</div>
+			<div th:if="${mensaje}" class="alert alert-danger">
+				<p th:text="${mensaje}"></p>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="fragments/footer :: footer"></div>
+
+	</body>
+</html>

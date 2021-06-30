@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<meta charset="utf-8" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/logo1.png" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/docente.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/headeradmin :: header"></div>
+	<div th:replace="fragments/headeradmin :: menu"></div>
+	<div class="container">
+		
+							<h3 class="pb-3 text-center">REGISTAR DOCENTE</h3>
+							<form th:action="@{/docente/registrar}" method="post"
+								th:object="${docente}" enctype="multipart/form-data">
+
+		<input type="hidden" class="form-control" th:field="*{idDocente}" readonly="readonly"></input>
+		
+								<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="nombre">Nombre</label> <input
+												type="text" required="required" pattern="[A-Za-z0-9]{3,10}"
+												title="Debe tener como maximo 10 caracteres y minimo 3 caracteres"
+												th:field="*{nombre}" class="form-control"
+												id="nombre"  />
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('nombre')}"
+												th:errors="*{nombre}"></div>
+										</div>
+									</div>
+								</div>
+									<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="Apellido">Apellido</label> <input
+												type="text" required="required" pattern="[A-Za-z0-9]{3,10}"
+												title="Debe tener como maximo 10 caracteres y minimo 3 caracteres"
+												 th:field="*{Apellido}" class="form-control"
+												id="Apellido"  />
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('Apellido')}"
+												th:errors="*{Apellido}"></div>
+										</div>
+									</div>
+								</div>
+								
+									<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="correoAlumno">Direccion</label> <input
+												type="text" required="required" maxlength="50" pattern="(?=.*\d)(?=.*[(a-z)(A-Z]).{3,}"
+												title="Debe contener letras y numeros. Ejemplo: Av.Brasil 147"
+												 th:field="*{residenciaDocente}" class="form-control"
+												id="residenciaDocente"  />
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('residenciaDocente')}"
+												th:errors="*{residenciaDocente}"></div>
+										</div>
+									</div>
+								</div>
+								
+									<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="correoDocente">Correo</label> <input
+												type="email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+												title="Debe tener el formato abc@nombredempresa.com"
+												 th:field="*{correoDocente}" class="form-control"
+												id="correoDocente"  />
+											<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('correoDocente')}"
+												th:errors="*{correoDocente}"></div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+								
+								<label for="especialidad" class=" col-sm-2 col-form-label">Especialidad</label>
+					<select
+						class="form-control" th:field="*{especialidad.id_especialidad}">
+						<option th:each="car: ${listaEspecialidades}" th:value="${car.id_especialidad}"
+							th:text="${car.nombreEspecialidad}"
+							th:selected="(${car.id_especialidad} == *{especialidad.id_especialidad})"></option>
+					</select>
+					</div>
+									</div>
+								</div>
+					
+					<div class="row">
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label for="foto">FOTO</label> <input
+												type="file" name="file" class="form-control"
+												id="foto"  />
+												<div class="alert alert-danger"
+												th:if="${#fields.hasErrors('foto')}"
+												th:errors="*{foto}"></div>
+										</div>
+				
+								</div>
+							
+							</div>		
+							
+								
+								
+								
+								
+								
+					
+										
+									
+								<button type="submit" class="btn btn-secondary btn-lg active">REGISTRAR</button>
+								<a href="/docente/listar" class="btn btn-danger">CANCELAR</a>
+							</form>
+						</div>
+			
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
